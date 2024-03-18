@@ -1,0 +1,13 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+
+@import './test.scss';
+@import './menu/admin.scss';
+@import './auth/login.scss';
+@import './pages/admin/categories.scss';
+
+@import 'mapbox-gl/dist/mapbox-gl.css';
