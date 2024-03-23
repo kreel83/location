@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\Front\WelcomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Route;
@@ -10,9 +12,15 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index'])->name('front.index');
+Route::get('/livesearch', [WelcomeController::class, 'livesearch'])->name('front.livesearch');
+Route::post('/search', [WelcomeController::class, 'search'])->name('front.search');
+
+Route::get('/{categorie_link_rewrite}', [CategorieController::class, 'afficheCategorie'])->name('front.afficheCategorie');
+
+// Route::get('/', function () {
+//     return view('front.welcome');
+// });
 
 // Route::get('/dashboard', function () {
 //     return view('welcome');
