@@ -16,8 +16,6 @@ Route::get('/', [WelcomeController::class, 'index'])->name('front.index');
 Route::get('/livesearch', [WelcomeController::class, 'livesearch'])->name('front.livesearch');
 Route::post('/search', [WelcomeController::class, 'search'])->name('front.search');
 
-Route::get('/{categorie_link_rewrite}', [CategorieController::class, 'afficheCategorie'])->name('front.afficheCategorie');
-
 // Route::get('/', function () {
 //     return view('front.welcome');
 // });
@@ -43,3 +41,5 @@ Route::get('/import-cities', [SuperAdminController::class, 'importCities'])->nam
 Route::get('/import-jours-feries', [SuperAdminController::class, 'importJoursFeries'])->name('superadmin.importjourferies');
 
 require __DIR__.'/auth.php';
+
+Route::get('/{categorie_link_rewrite}', [CategorieController::class, 'afficheCategorie'])->name('front.afficheCategorie');
