@@ -51,7 +51,7 @@
         <tr valign="top">
             <td width="160">
                 <span style="font-size: 28px;">
-                    Invoice
+                    Facture
                 </span>
 
                 <!-- Invoice Info -->
@@ -60,14 +60,14 @@
                         <strong>Product:</strong> {{ $product }}<br>
                     @endisset
 
-                    <strong>Date:</strong> {{ $invoice->date()->toFormattedDateString() }}<br>
+                    <strong>Date :</strong> {{ $invoice->date()->toFormattedDateString() }}<br>
 
                     @if ($dueDate = $invoice->dueDate())
                         <strong>Due date:</strong> {{ $dueDate->toFormattedDateString() }}<br>
                     @endif
 
                     @if ($invoiceId = $id ?? $invoice->number)
-                        <strong>Invoice Number:</strong> {{ $invoiceId }}<br>
+                        <strong>Facture n° :</strong> {{ $invoiceId }}<br>
                     @endif
                 </p>
             </td>
@@ -118,7 +118,30 @@
             </td>
             <td width="50%">
                 <!-- Customer Details -->
-                <strong>Recipient</strong><br>
+                <strong>Client</strong><br>
+
+                {{-- {{ $invoice->customer_name ?? $invoice->customer_email }}<br> --}}
+                {{-- {{ $invoice->customer_name ?? $customer_name }}<br>
+
+                @if ($customer_store_name)
+                    {{ $customer_store_name }}<br>
+                @endif
+
+                @if ($customer_store_adresse1)
+                    {{ $customer_store_adresse1 }}<br>
+                @endif
+
+                @if ($customer_store_adresse2)
+                    {{ $customer_store_adresse2 }}<br>
+                @endif
+
+                @if ($customer_store_cp)
+                    {{ $customer_store_cp }}<br>
+                @endif
+
+                @if ($customer_store_ville)
+                    {{ $customer_store_ville }}<br>
+                @endif --}}
 
                 {{ $invoice->customer_name ?? $invoice->customer_email }}<br>
 
@@ -180,14 +203,14 @@
                 <table width="100%" class="table" border="0">
                     <tr>
                         <th align="left">Description</th>
-                        <th align="left">Qty</th>
-                        <th align="left">Unit price</th>
+                        <th align="left">Quantité</th>
+                        <th align="left">Prix unitaire</th>
 
                         @if ($invoice->hasTax())
-                            <th align="right">Tax</th>
+                            <th align="right">Taxes</th>
                         @endif
 
-                        <th align="right">Amount</th>
+                        <th align="right">Montant</th>
                     </tr>
 
                     <!-- Display The Invoice Line Items -->
@@ -242,7 +265,7 @@
 
                             <tr>
                                 <td></td>
-                                <td colspan="{{ $invoice->hasTax() ? 3 : 2 }}">
+                                <td colspan="{{ $invoice->hasTax() ? 3 : 2 }}" align="right">
                                     @if ($coupon->isPercentage())
                                         {{ $coupon->name() }} ({{ $coupon->percentOff() }}% Off)
                                     @else
@@ -259,7 +282,7 @@
                     @unless ($invoice->isNotTaxExempt())
                         <tr>
                             <td></td>
-                            <td colspan="{{ $invoice->hasTax() ? 3 : 2 }}">
+                            <td colspan="{{ $invoice->hasTax() ? 3 : 2 }}" align="right">
                                 @if ($invoice->isTaxExempt())
                                     Tax is exempted
                                 @else
@@ -307,7 +330,7 @@
                     <tr>
                         <td></td>
                         <td colspan="{{ $invoice->hasTax() ? 3 : 2 }}">
-                            <strong>Amount due</strong>
+                            <strong>Montant total</strong>
                         </td>
                         <td align="right">
                             <strong>{{ $invoice->amountDue() }}</strong>
