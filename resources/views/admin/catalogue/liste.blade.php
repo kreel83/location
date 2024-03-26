@@ -3,7 +3,7 @@
 @section('content')
 <h3>Liste des produits</h3>
 
-<button class="btn btn-primary my-5" data-bs-toggle="modal" data-bs-target="#newModelModal">Ajouter un modèle</button>
+<a href="{{route('admin.catalogue.new',['catalogue_id' => 'new'])}}" class="btn btn-primary my-5" >Ajouter un modèle</a>
 <div>
    
     <table class="table table-bordered table-striped">
@@ -16,6 +16,11 @@
             <td>{{$catalogue->reference}}</td>
             <td>{{$catalogue->name}}</td>
             <td>{{$catalogue->description}}</td>
+            <td>
+              @if (!$catalogue->already_choose())
+                <a href="{{route('admin.collections.add',['catalogue_id' => $catalogue->id])}}">ajouter à ma collection</a>
+                @endif
+            </td>
         </tr>
         @endforeach
 

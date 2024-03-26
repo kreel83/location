@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Attribut;
 use App\Models\Categorie;
 
 class CategoriesController extends Controller
@@ -12,6 +13,7 @@ class CategoriesController extends Controller
         $categories = Categorie::getAllCategories();
         $cat = $categories->first();
         $attributs = $cat->attributs();
+        
         
         return view('admin.categories.categories')
             ->with('attributs', $attributs)
@@ -26,5 +28,16 @@ class CategoriesController extends Controller
         $cat->name = ucfirst($request->name);
         $cat->save();
         return ['status' => 'success','message' => "Catégorie ajoutée avec succès"];
+    }
+
+    public function add(Request $request) {
+        $attribut = new Categorie();
+        $attribut->name = ucfirst(strtolower($request->texte));
+        $attribut->parent_id = $request->parent_id;
+        $attribut->active = 0;
+        $attribut->save();
+        return '<tr class="line" data-parent="'.$request->parent_id.'" data-id="'.$attribut->id.'" ><td class="texte">'.$request->texte.'</td></tr>';
+
+
     }
 }

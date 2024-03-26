@@ -24,4 +24,8 @@ class Mescollection extends Model
         return $link ? $link->value : null;
 
     }
+
+    public function catalogue() {
+        return $this->belongsTo('App\Models\Catalogue');
+    }
 }

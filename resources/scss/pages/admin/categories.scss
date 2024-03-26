@@ -8,3 +8,50 @@ md-toast.md-success-toast-theme {
         background-color: green;
     }
 }
+
+.deployCategorie {
+    cursor: pointer;
+    i.deploy {
+        transform: rotate(-90deg);
+        transition: all 0.5s ease-in-out;
+    }
+    
+}
+
+#categorie li {
+    list-style: none;
+    border: 1px solid lightgray;
+    padding: 2px 8px;
+    cursor: pointer;
+    margin: 2px 0;
+    &:hover {
+        background-color: #7386D5;
+        color: white;
+    }
+}
+
+.tag-cat {
+    padding: 4px 12px;;
+    font-size: 14px;;
+    background-color: #7386D5;
+    color: white;
+    border-radius: 7px;
+    margin-right: 20px;
+}
+
+#categories {
+    td {
+        background-color: transparent !important;
+    }
+    table {
+        background-color: transparent !important;
+     .line {
+        &.active {
+                background-color: #7386D5 !important;
+            }        
+    }
+    }
+}
+
+
+
