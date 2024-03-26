@@ -8,4 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 class Attribut extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'categorie_attribut',
+        'type',
+        'type_param',
+        'suffixe',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'type_param' => 'array',
+        ];
+    }
+
 }
