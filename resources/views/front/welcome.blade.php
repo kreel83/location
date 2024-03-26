@@ -3,42 +3,42 @@
 @section('content')
 
 <script>
-    function showResult(str) {
-      if (str.length==0) {
-        document.getElementById("livesearch").innerHTML="";
-        document.getElementById("livesearch").style.border="0px";
-        return;
-      }
-      var xmlhttp=new XMLHttpRequest();
-      xmlhttp.onreadystatechange=function() {
-        if (this.readyState==4 && this.status==200) {
-          document.getElementById("livesearch").innerHTML=this.responseText;
-          document.getElementById("livesearch").style.border="1px solid #A5ACB2";
-        }
-      }
-      xmlhttp.open("GET","{{ route('front.livesearch') }}?q="+str,true);
-      xmlhttp.send();
+  function showResult(str) {
+    if (str.length==0) {
+      document.getElementById("livesearch").innerHTML="";
+      document.getElementById("livesearch").style.border="0px";
+      return;
     }
-    </script>
+    var xmlhttp=new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function() {
+      if (this.readyState==4 && this.status==200) {
+        document.getElementById("livesearch").innerHTML=this.responseText;
+        document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+      }
+    }
+    xmlhttp.open("GET","{{ route('front.livesearch') }}?q="+str,true);
+    xmlhttp.send();
+  }
+  </script>
 
 <h4>Que recherchez vous ?</h4>
 
 <div>
 
-    <form action="{{ route('front.search') }}" method="post">
-    @csrf
+  <form action="{{ route('front.search') }}" method="post">
+  @csrf
 
-        <input type="text" id="recherche" name="recherche" placeholder="Outil, catégorie..." onkeyup="showResult(this.value)">
+      <input type="text" id="recherche" name="recherche" placeholder="Outil, catégorie..." onkeyup="showResult(this.value)">
 
-        <input type="text" id="emplacement" name="emplacement" placeholder="Où...">
+      <input type="text" id="emplacement" name="emplacement" placeholder="Où...">
 
-        <button type="submit">Go !</button>
+      <button type="submit">Go !</button>
 
-        <div class="mt-1 p-1" id="livesearch"></div>
-        
-        <input type="hidden" id="categorie_id" name="categorie_id">
+      <div class="mt-1 p-1" id="livesearch"></div>
+      
+      <input type="hidden" id="categorie_id" name="categorie_id">
 
-    </form>
+  </form>
 
 </div>
 
@@ -50,28 +50,28 @@
 
 <select class="js-example-basic-single" name="state">
 
-    <option value="AL">Alabama</option>
-    <option value="WY">Wyoming</option>
+  <option value="AL">Alabama</option>
+  <option value="WY">Wyoming</option>
 </select>
 
 <script>
-    // In your Javascript (external .js resource or <script> tag)
-    $(document).ready(function() {
-        $('.js-example-basic-single').select2();
-    });
+  // In your Javascript (external .js resource or <script> tag)
+  $(document).ready(function() {
+      $('.js-example-basic-single').select2();
+  });
 </script> --}}
 
 <script>
-  $(document).on('click','.res', function(e) {
-    var id = $(this).data('categorie_id')
-    $('#categorie_id').val(id)
-    $('#recherche').val($(this).text())
-    $('#livesearch').html('')
-    $('#livesearch').css('border-width', '0px');
-    //alert($(this).text());
-    //alert(id);
-    //alert($('#categorie_id').val())
-  });
+$(document).on('click','.res', function(e) {
+  var id = $(this).data('categorie_id')
+  $('#categorie_id').val(id)
+  $('#recherche').val($(this).text())
+  $('#livesearch').html('')
+  $('#livesearch').css('border-width', '0px');
+  //alert($(this).text());
+  //alert(id);
+  //alert($('#categorie_id').val())
+});
 </script>
-  
+
 @endsection

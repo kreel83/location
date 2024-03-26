@@ -29,21 +29,25 @@ use App\Http\Controllers\WelcomeController;
 
 
     Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
-    Route::get('/produits', [ProduitsController::class,'produits'])->name('produits');
-    Route::get('/collections', [MescollectionController::class,'collections'])->name('collections');
-    Route::get('/catalogue', [CatalogueController::class,'catalogue'])->name('catalogue');
-    Route::get('/catalogue/create/{catalogue_id}', [CatalogueController::class,'new'])->name('catalogue.new');
-    Route::post('/catalogue/create', [CatalogueController::class,'save'])->name('catalogue.create.post');
-    Route::get('/catalogue/choixAttribut', [CatalogueController::class,'choixAttribut'])->name('choixAttribut');
-    Route::post('/catalogue/create', [CatalogueController::class,'create'])->name('catalogue.create');
-    Route::post('/catalogue/add_produits', [CatalogueController::class,'add_produits'])->name('catalogue.add_produits');
-    Route::get('/catalogue/photos/{catalogue_id}', [CatalogueController::class,'photos'])->name('catalogue.photos');
-    Route::post('/catalogue/photos', [CatalogueController::class,'photos_save'])->name('catalogue.photos_save');
-
-
-    Route::get('/produits/show/{produit_id}', [ProduitsController::class,'show'])->name('produits.show');
-    Route::get('/produits/liste_produits/{collection_id}', [ProduitsController::class,'liste_produits'])->name('produits.liste_produits');
-
+    // Route::get('/produits', [ProduitsController::class,'produits'])->name('produits');
+    // Route::get('/collections', [MescollectionController::class,'collections'])->name('collections');
+    // Route::get('/catalogue', [CatalogueController::class,'catalogue'])->name('catalogue');
+    // Route::get('/catalogue/create/{catalogue_id}', [CatalogueController::class,'new'])->name('catalogue.new');
+    // Route::post('/catalogue/create', [CatalogueController::class,'save'])->name('catalogue.create.post');
+    // Route::get('/catalogue/choixAttribut', [CatalogueController::class,'choixAttribut'])->name('choixAttribut');
+    
+    // Route::get('/collections', [ProduitsController::class,'liste'])->name('collections.liste');
+    // Route::get('/collections/add/{catalogue_id}', [ProduitsController::class,'add'])->name('collections.add');
+    // Route::get('/collections/show/{collection_id}', [ProduitsController::class,'show'])->name('collections.show');
+    
+    
+    Route::get('/produits/liste_produits', [ProduitsController::class,'liste_produits'])->name('produits.liste_produits');
+    Route::get('/produits/create/{produit_id}', [ProduitsController::class,'new'])->name('produits.new');
+    Route::post('/produits/photos', [ProduitsController::class,'photos_save'])->name('produits.photos_save');
+    Route::get('/produits/photos/{produit_id}', [ProduitsController::class,'photos'])->name('produits.photos');
+    Route::post('/produits/create', [ProduitsController::class,'create'])->name('produits.create');
+    
+    
     Route::get('/produits/duplicate/{id}', [ProduitsController::class,'duplicate'])->name('produits.duplicate');
     Route::get('/produits/categorieChoice', [ProduitsController::class,'categorieChoice'])->name('categorieChoice');
     Route::get('/categories', [CategoriesController::class,'index'])->name('categories');
@@ -51,6 +55,8 @@ use App\Http\Controllers\WelcomeController;
     Route::get('/tarifs/{id}', [TarifsController::class,'index'])->name('tarifs');
     Route::get('/produits/addTarif', [TarifsController::class,'addTarif'])->name('addTarif');
     Route::get('/produits/deleteTarif', [TarifsController::class,'deleteTarif'])->name('deleteTarif');
+    Route::post('/produits/add_produits', [ProduitsController::class,'add_produits'])->name('produits.add_produits');
+    Route::get('/produits/add_caracteristique', [ProduitsController::class,'add_caracteristique'])->name('produits.add_caracteristique');
 
     Route::get('/profil', [ProfilController::class,'index'])->name('profil');
     Route::post('/profil', [ProfilController::class,'save'])->name('profil.save');
