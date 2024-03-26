@@ -21,6 +21,92 @@ const produits = (Toast) => {
         });
 
     
+    $(document).on('change','#select_attribut', function() {
+        var type = $(this).find(':selected').data('type')
+        console.log(type)
+        $('.bloc_valeur').addClass('d-none')
+        if (type == 'liste') {
+            var liste = $(this).find(':selected').data('liste')
+           
+            console.log('liste', liste[1])
+            var s = '';
+            for (var l in liste) {               
+                s += '<option value="'+liste[l]+'">'+liste[l]+'</option>'
+            }
+            console.log('s', s)
+            $('.bloc_valeur[data-type="liste"]').removeClass('d-none')
+            $('#type_param').html(s)
+        } else {
+            $('.bloc_valeur[data-type="autre"]').removeClass('d-none')
+        }
+        $('#attribut_suffixe').addClass('d-none')
+        var suffixe = $(this).find(':selected').data('suffixe')
+        if (suffixe) {
+            $('#attribut_suffixe').removeClass('d-none')
+            $('#attribut_suffixe').text(suffixe)
+        }
+    })
+
+    $(document).on('click','#addCaracteristiques', function() {
+        var item = $(this).data('item')
+        var attribut = $('#select_attribut').val()
+        var valeur = $('#valeur').val()
+        $.get('/admin/produits/add_caracteristique?item='+item+'&attribut='+attribut+'&valeur='+valeur, function(data) {            
+            $('#caracteristiques').html(data)
+       })
+
+    })
+
+    $(document).on('click','.liste_categories .premier tr', function(){
+        var id = $(this).data('id')
+        var texte = $(this).find('.texte').text()
+        $('.liste_categories .premier tr').removeClass('active')
+        $('.liste_categories .deuxieme tr').removeClass('active')
+        $(this).addClass('active')
+
+        $('.liste_categories .deuxieme tr').addClass('d-none')
+        $('.liste_categories .troisieme tr').addClass('d-none')
+        $('.liste_categories .deuxieme tr[data-parent="'+id+'"]').removeClass('d-none')
+        $('.liste_categories .premier input').val(texte)
+        $('.liste_categories .premier input').attr('data-id',id)
+        $('#new_cat3').addClass('d-none')
+    });
+
+    $(document).on('click','.liste_categories .deuxieme tr', function(){
+        $('.liste_categories .deuxieme tr').removeClass('active')
+        $(this).addClass('active')
+        var id = $(this).data('id')
+        $('.liste_categories .troisieme tr').addClass('d-none')
+        $('.liste_categories .troisieme tr[data-parent="'+id+'"]').removeClass('d-none')
+        $('#new_cat3').removeClass('d-none')
+    });
+
+    $(document).on('click','.liste_categories .troisieme tr', function(){
+        $('.liste_categories .troisieme tr').removeClass('active')
+        $(this).addClass('active')
+    });
+
+    $(document).on('keyup','.liste_categories #new_cat3', function(e) {
+        if (e.key == 'Enter') {
+            var texte = $(this).val()
+            var parent = $('.deuxieme .active').data('id')
+            $.get('/admin/categories/add?texte='+texte+'&parent_id='+parent, function(data) {
+                $('.troisieme tbody').append(data)
+                $('#new_cat3').val('')
+            })            
+        }
+
+    });
+
+    $(document).on('click','.liste_categories tr', function(){
+        var id = $(this).data('id')
+        var texte = $(this).find('.texte').text()
+        $('#choice_categorie').val(texte)
+        $('#choice_categorie_id').val(id)
+        $('#choice_categorie').attr('data-id',id)
+    });
+
+
     $(document).on('click','.imagePreview', function(){
         var id = $(this).data('id')
         console.log('id', id)

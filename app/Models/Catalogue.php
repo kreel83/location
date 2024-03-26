@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Catalogue extends Model
 {
@@ -16,5 +17,10 @@ class Catalogue extends Model
        
         return $link ? $link->value : null;
 
+    }
+
+    public function already_choose() {
+        $search = Mescollection::where('user_id', Auth::id())->where('catalogue_id', $this->id)->first();
+        return $search ? true : false;
     }
 }

@@ -51,7 +51,10 @@ use App\Http\Controllers\WelcomeController;
     Route::get('/produits/duplicate/{id}', [ProduitsController::class,'duplicate'])->name('produits.duplicate');
     Route::get('/produits/categorieChoice', [ProduitsController::class,'categorieChoice'])->name('categorieChoice');
     Route::get('/categories', [CategoriesController::class,'index'])->name('categories');
+    Route::get('/categories/add', [CategoriesController::class,'add'])->name('categories.add');
+    
     Route::get('/familles', [FamilleController::class,'index'])->name('familles');
+
     Route::get('/tarifs/{id}', [TarifsController::class,'index'])->name('tarifs');
     Route::get('/produits/addTarif', [TarifsController::class,'addTarif'])->name('addTarif');
     Route::get('/produits/deleteTarif', [TarifsController::class,'deleteTarif'])->name('deleteTarif');

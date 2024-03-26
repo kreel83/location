@@ -13,7 +13,7 @@ class TarifsController extends Controller
     public function index($id) {
         if ($id) {
             $collection = Mescollection::find($id);
-            $tarifs = Grille::where('mescollection_id', $id)->orderBy('order')->get();
+            $tarifs = Grille::where('item_id', $id)->orderBy('order')->get();
         }
         return view('admin.grilles.tarifs')->with('tarifs', $tarifs)->with('collection',$collection);
     }

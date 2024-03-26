@@ -44,15 +44,28 @@ class CatalogueController extends Controller
           
         }
 
-        if ($request->categorie_id) {
-            $categorie = Categorie::find($request->categorie_id);
-            $attributs_cat = Attribut_link::where('parent_id', $request->categorie_id)->where('parent_type','categorie')->get();
-            $categorie_id = $request->categorie_id;
+        $line_cat = array();
+        if ($catalogue->categorie_id) {
+            $categorie = Categorie::find($catalogue->categorie_id);
+            $attributs_cat = Attribut_link::where('parent_id', $catalogue->categorie_id)->where('parent_type','categorie')->get();
+            
+            for ($i = 0; $i <= 3; $i++) {
+                $line_cat[] = $categorie->name;
+                if (!$categorie->parent_id) $i=3;
+                
+                $categorie = Categorie::find($categorie->parent_id);
+
+            } 
+            
         } else {
             $categorie = Categorie::find($catalogue->categorie_id);
             $categorie_id = $catalogue->categorie_id;
+            $attributs_cat = new Collection();
+            
         }
-
+        
+        $line_cat = array_reverse($line_cat);
+        
 
 
         $categories = Categorie::whereNull('parent_id')->get();
@@ -71,6 +84,7 @@ class CatalogueController extends Controller
             ->with('attributs_cat', $attributs_cat)
             ->with('attributs_produit', $attributs_produit)
             ->with('categorie', $categorie)
+            ->with('line_cat', $line_cat)
             ->with('categories', $categories)
             ->with('marques', $marques)
             ->with('attributs_liste', $attributs_liste)
@@ -189,37 +203,7 @@ class CatalogueController extends Controller
 
     }
 
-    public function photos_save(Request $request) {
-        $collection = Mescollection::find($request->collection_id);
-        $liste = array_values($request->file());
 
-
-        foreach ($liste[0]  as $key=>$image) {
-            // $originalName = $image->getClientOriginalName();
-            $originalName = $key.'.jpg';
-            // $img = Image::read(public_path('storage/'.Auth::user()->pathToAsset."source_logo-$request->store_id.$extension"));
-            // $image->resize(100, 50);
-            // $image->save(public_path('storage/'.Auth::user()->pathToAsset."logo-$request->store_id.$extension"));
-    
-            $save_path =  public_path('storage/produits/'.Carbon::parse($collection->created_at)->format('Ym').'/'.Auth::id());
-
-            // dd($save_path);
-            if (!file_exists($save_path)) {
-                mkdir($save_path, 666, true);
-            }
-            $img = Image::read($image);
-            $img->scale(400,400)->toJpeg()->save($save_path."/".$originalName);
-
-
-
- 
-        }
-        
-        return redirect()->route('admin.collections.photos',['collection_id' => $collection->id]);
-
-
-
-    }
 
     public function choixAttribut(Request $request) {
         

@@ -7,6 +7,7 @@ import Alpine from 'alpinejs';
 
 // Added: Actual Bootstrap JavaScript dependency
 import 'bootstrap';
+import 'select2';
 import { Modal, Toast } from 'bootstrap'
 
 // Added: Popper.js dependency for popover support in Bootstrap
@@ -20,6 +21,18 @@ import { produits } from './pages/produits';
 
 window.Alpine = Alpine;
 
+
+$('#select_attribut').select2()
+
+  const quill = new Quill('#editor', {
+    theme: 'snow'
+  });
+
+  quill.on('text-change', function(delta, oldDelta, source) {
+    var t = quill.root.innerHTML;
+    console.log(t)
+    $('#description_ghost').val(t)
+  })
 
 
 Alpine.start();

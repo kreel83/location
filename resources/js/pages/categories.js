@@ -1,5 +1,19 @@
 const categories = (Toast) => {
 
+    $(document).on('click','.deployCategorie', function() {
+        $(this).find('i').toggleClass('deploy')
+        var id = $(this).data('id')
+
+            if ($(this).find('i').hasClass('deploy')) {
+                $('ul[data-id="'+id+'"]').slideUp()            
+            } else {
+                $('ul[data-id="'+id+'"]').slideDown()
+            }            
+
+
+    })
+
+
     $(document).on('click','.addCategorie', function() {
        var id = $(this).data('id')
        $('#new_category').attr('data-lvl', id)
