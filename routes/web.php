@@ -16,6 +16,7 @@ Route::get('/', [WelcomeController::class, 'index'])->name('front.index');
 Route::get('/livesearch', [WelcomeController::class, 'livesearch'])->name('front.livesearch');
 Route::post('/search', [WelcomeController::class, 'search'])->name('front.search');
 
+
 // Route::get('/', function () {
 //     return view('front.welcome');
 // });
@@ -47,3 +48,4 @@ Route::post('/attribut/selection', [SuperAdminController::class, 'selectionAttri
 require __DIR__.'/auth.php';
 
 Route::get('/{categorie_link_rewrite}', [CategorieController::class, 'afficheCategorie'])->name('front.afficheCategorie');
+
