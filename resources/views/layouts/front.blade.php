@@ -7,9 +7,16 @@
     <title>Locamarket</title>
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
 </head>
+
     <body>
 
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      {{-- <div style="background:navy" class="p-2 w-100 text-white">
+
+      </div> --}}
+
+        {{-- <nav class="navbar navbar-expand-lg bg-body-tertiary"> --}}
+        <nav class="navbar navbar-expand-lg">
+
             <div class="container-fluid">
               <a class="navbar-brand" href="#">LOCAMARKET</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attribut;
+use App\Models\Attribut_Categorie;
+use App\Models\AttributCategorie;
+use App\Models\Categorie;
+use App\Models\CategorieAttribut;
 use App\Models\Citie;
 use App\Models\JoursFerie;
 use Illuminate\Http\Request;
@@ -9,7 +14,7 @@ use Illuminate\Http\Request;
 class SuperAdminController extends Controller
 {
 
-    function importCities() {
+    public function importCities() {
         // https://geo.api.gouv.fr/decoupage-administratif/communes#advanced
         Citie::truncate();
         // génère la chaine des départements a copier-coller      
@@ -49,7 +54,7 @@ class SuperAdminController extends Controller
     //     fclose($file);
     // }
 
-    function importJoursFeries() {
+    public function importJoursFeries() {
         // https://api.gouv.fr/documentation/jours-feries
         $str = 'metropole,alsace-moselle,guadeloupe,guyane,la-reunion,martinique,mayotte,nouvelle-caledonie,polynesie-francaise,saint-barthelemy,saint-martin,saint-pierre-et-miquelon,wallis-et-futuna';
         $zones = explode(',', $str);
@@ -71,6 +76,80 @@ class SuperAdminController extends Controller
                 }
             }
         }
+    }
+
+    public function newAttribut(Request $request) {
+        $attributs = explode('+', $request->attributs);
+        $type_param = $request->type_param ? explode('+', $request->type_param) : null;
+        foreach ($attributs as $attribut) {
+            $atr = Attribut::updateOrCreate(
+                ['name' => $attribut],
+                ['categorie_attribut' => 'technique', 'type' => $request->type, 'type_param' => $type_param, 'suffixe' => $request->suffixe]
+            );
+            AttributCategorie::firstOrCreate(['categorie_id' => $request->categorie_id, 'attribut_id' => $atr->id]);
+        }
+        return back();
+    }
+
+    public function categories() {
+
+        function afficher_menu($parent, $niveau, $categories, $categories_sel) {
+            $html = "";
+            $niveau_precedent = 0;
+            
+            if (!$niveau && !$niveau_precedent) $html .= "\n<ul>\n";
+            
+            foreach ($categories as $noeud) {
+
+                if ($parent == $noeud->parent_id) {
+            
+                    if ($niveau_precedent < $niveau) $html .= "\n<ul>\n";
+                
+                    $html .= '<li style="none">';
+
+                    if(in_array($noeud->id, $categories_sel)) $html .= 'checked ';
+
+                    $url = route('superadmin.categorie', ['id' => $noeud->id]);
+                    $str = $noeud->attributs->count() > 0 ? '( <b>'.$noeud->attributs->count().'</b> atributs)' : '';
+                    $html .= $noeud->id.' <a href="'.$url.'">'.$noeud->name.'</a> '.$str;
+                
+                    $niveau_precedent = $niveau;
+                
+                    $html .= afficher_menu($noeud->id, ($niveau + 1), $categories, $categories_sel);
+            
+                }
+            }
+            
+            if (($niveau_precedent == $niveau) && ($niveau_precedent != 0)) $html .= "</ul>\n</li>\n";
+            else if ($niveau_precedent == $niveau) $html .= "</ul>\n";
+            else $html .= "</li>\n";
+            
+            return $html;
+        }
+
+        $categories = Categorie::all();
+        $tree = afficher_menu(null, 0, $categories, []);
+        //dd($tree);
+        return view('superadmin.categories')
+            ->with('tree', $tree)
+            ->with('categories', $categories);
+
+    }
+
+    public function categorie($id) {
+        $categorie = Categorie::find($id);
+        $attributs = Attribut::orderBy('name')->get();
+        return view('superadmin.categorie')
+            ->with('attributs', $attributs)
+            ->with('categorie', $categorie);
+    }
+
+    public function selectionAttribut(Request $request) {
+        AttributCategorie::where('categorie_id', $request->categorie_id)->delete();
+        foreach ($request->attributs as $attribut) {
+            AttributCategorie::firstOrCreate(['categorie_id' => $request->categorie_id, 'attribut_id' => $attribut]);
+        }
+        return back();
     }
 
 }

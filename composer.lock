@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0532e7692f25446bcb8721e29850f292",
+    "content-hash": "72f13a69eeaf9f3d8ba0e05f5c44db93",
     "packages": [
         {
             "name": "apalfrey/select2-bootstrap-5-theme",
@@ -9158,5 +9158,5 @@
         "php": "^8.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

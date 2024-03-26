@@ -111,17 +111,17 @@ a[data-toggle="collapse"] {
     transform: translateY(-50%);
 }
 
-ul ul a {
+#sidebar ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: #6d7fcc;
 }
 
-ul.CTAs {
+#sidebar ul.CTAs {
     padding: 20px;
 }
 
-ul.CTAs a {
+#sidebar ul.CTAs a {
     text-align: center;
     font-size: 0.9em !important;
     display: block;

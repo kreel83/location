@@ -35,11 +35,11 @@
                             {{ $jour }}
                         </td>
                         <td>
-                            <input type="time" name="h{{$key}}[]" value="{{ $horaires[$key][0]}}"> - <input type="time" name="h{{$key}}[]" value="{{ $horaires[$key][1]}}">
+                            <input type="time" name="h{{$key}}[]" value="{{ $horaires[$key][0] ?? '' }}"> - <input type="time" name="h{{$key}}[]" value="{{ $horaires[$key][1] ?? '' }}">
                         </td>
                         <td>/</td>
                         <td>
-                            <input type="time" name="h{{$key}}[]" value="{{ $horaires[$key][2]}}"> - <input type="time" name="h{{$key}}[]" value="{{ $horaires[$key][3]}}">
+                            <input type="time" name="h{{$key}}[]" value="{{ $horaires[$key][2] ?? '' }}"> - <input type="time" name="h{{$key}}[]" value="{{ $horaires[$key][3] ?? '' }}">
                         </td>
 
                     </tr>

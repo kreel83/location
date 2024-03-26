@@ -10,7 +10,7 @@
         "components/jquery": "^3.7",
         "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
-        "intervention/image": "^3.4",
+        "intervention/image": "^3.5",
         "intervention/image-laravel": "^1.1",
         "laravel/cashier": "^15.2",
         "laravel/framework": "^11.0",
