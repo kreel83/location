@@ -24,8 +24,13 @@ class Categorie extends Model
         return Categorie::with('children')->whereNull('parent_id')->orderBy('name')->get();
     }
 
-    public function attributs() {
-        $liste =  $this->hasMany('App\Models\Attribut_link','parent_id','id')->where('parent_type','categorie')->pluck('attribut_id');
-        return Attribut::whereIn('id', $liste)->get();
+    // public function attributs() {
+    //     $liste =  $this->hasMany('App\Models\Attribut_link','parent_id','id')->where('parent_type','categorie')->pluck('attribut_id');
+    //     return Attribut::whereIn('id', $liste)->get();
+    // }
+
+    public function attributs()
+    {
+        return $this->belongsToMany(Attribut::class)->orderBy('name');
     }
 }

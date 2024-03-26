@@ -39,6 +39,10 @@ Route::post('/search', [WelcomeController::class, 'search'])->name('front.search
 
 Route::get('/import-cities', [SuperAdminController::class, 'importCities'])->name('superadmin.importcities');
 Route::get('/import-jours-feries', [SuperAdminController::class, 'importJoursFeries'])->name('superadmin.importjourferies');
+Route::post('/attribut/new', [SuperAdminController::class, 'newAttribut'])->name('superadmin.attribut.new');
+Route::get('/categories', [SuperAdminController::class, 'categories'])->name('superadmin.categories');
+Route::get('/categorie/{id}', [SuperAdminController::class, 'categorie'])->name('superadmin.categorie');
+Route::post('/attribut/selection', [SuperAdminController::class, 'selectionAttribut'])->name('superadmin.attribut.selection');
 
 require __DIR__.'/auth.php';
 
